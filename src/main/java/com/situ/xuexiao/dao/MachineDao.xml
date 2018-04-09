@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+   <mapper namespace="com.situ.xuexiao.dao.MachineDao">
+   
+  	 	<select id="findAllMachine" resultType="Machine">
+  	 		select * 
+			from machine limit #{index},#{pageSize}
+  	 	</select>
+  	 	
+  	 	<select id="findMachineCount" resultType="int">
+  	 		select count(*) from machine
+  	 	</select>
+  	 	
+  	 	<select id="findMachines" parameterType="int" resultType="Machine">
+  	 		select * from machine where workShop = #{int}
+  	 	</select>
+  	 	
+  	 	<select id="findModelNumber" parameterType="int" resultType="Machine">
+  	 		select * from machine where id = #{ID}
+  	 	</select>
+   </mapper>

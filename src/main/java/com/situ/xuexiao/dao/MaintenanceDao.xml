@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+   <mapper namespace="com.situ.xuexiao.dao.MaintenanceDao">
+   
+   <resultMap type="MachineMaintenance" id="findMaintenance">
+	    <id property="id" column="maintenanceId"/>
+	    <result property="content" column="content"/>
+	    <result property="maintenanceDate" column="maintenanceDate"/>
+	    <result property="maintenancePeople" column="maintenancePeople"/>
+	    <result property="machineName" column="machineName"/>
+	    <result property="modelNumber" column="modelNumber"/>
+	    <result property="parts" column="parts"/>
+	    <result property="state" column="state"/>
+	</resultMap>
+   
+  	 	<select id="findAllMaintenance" resultMap="findMaintenance">
+  	 		SELECT m.id as maintenanceId,m.content,m.maintenanceDate,m.maintenancePeople,m.parts,m.state,ma.name as machineName,ma.modelNumber 
+			FROM maintenance AS m INNER JOIN machine_maintenance AS mm 
+			ON m.id = mm.maintenance_id INNER JOIN machine AS ma 
+			ON mm.machine_id = ma.id limit #{index},#{pageSize}
+  	 	</select>
+  	 	
+  	 	<select id="findMaintenanceCount" resultType="int">
+  	 		select count(*) from machine
+  	 	</select>
+  	 	
+  	 	<select id="findMachineMaintenanceByID" parameterType="int" resultMap="findMaintenance">
+  	 		SELECT m.id as maintenanceId,m.content,m.maintenanceDate,m.maintenancePeople,m.parts,m.state,ma.name as machineName,ma.modelNumber 
+			FROM maintenance AS m INNER JOIN machine_maintenance AS mm 
+			ON m.id = mm.maintenance_id INNER JOIN machine AS ma 
+			ON mm.machine_id = ma.id where m.id = #{ID}
+  	 	</select>
+   </mapper>
